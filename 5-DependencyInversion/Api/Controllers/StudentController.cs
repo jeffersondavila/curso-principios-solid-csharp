@@ -5,8 +5,17 @@ namespace DependencyInversion.Controllers;
 [ApiController, Route("student")]
 public class StudentController : ControllerBase
 {
-    StudentRepository studentRepository = new StudentRepository();
-    Logbook logbook = new Logbook();
+    // StudentRepository studentRepository = new StudentRepository();
+    // Logbook logbook = new Logbook();
+
+    ILogbook logbook;
+    IStudentRepository studentRepository;
+
+    public StudentController(IStudentRepository student, ILogbook log)
+    {
+        logbook = log;
+        studentRepository = student;
+    }
 
     [HttpGet]
     public IEnumerable<Student> Get()
